@@ -4,11 +4,13 @@ module Pod
   class TemplateCofigurator
 
     attr_reader :plugin_command
+    attr_reader :plugin_file
     attr_reader :plugin_name
 
     def initialize(plugin_name)
       exit unless plugin_name
       @plugin_command = plugin_name.split('-').last
+      @plugin_file = plugin_name.dup.gsub!('-', '_')
       @plugin_name = plugin_name
     end
 
@@ -39,15 +41,16 @@ module Pod
       file_names = ['LICENSE.txt',
                     'PLUGIN_README.md',
                     'Gemfile', 
+                    'PLUGIN.gemspec',
                     'lib/PLUGIN.rb', 
                     'lib/cocoapods_plugin.rb', 
                     'lib/pod/command/spec/COMMAND.rb']
       file_names.each do |file_name|
         text = File.read(file_name)
-        text.gsub!("${PLUGIN_CLASS", plugin_name.split('-').last.capitalize)
-        text.gsub!("${PLUGIN_COMMAND", plugin_command)
+        text.gsub!("${PLUGIN_CLASS}", plugin_name.split('-').last.capitalize)
+        text.gsub!("${PLUGIN_COMMAND}", plugin_command)
         text.gsub!("${PLUGIN_MODULE}", plugin_name.split('-').map(&:capitalize).join(''))
-        text.gsub!("${PLUGIN_FILE}", plugin_name.dup.gsub!('-', '_'))
+        text.gsub!("${PLUGIN_FILE}", plugin_file)
         text.gsub!("${PLUGIN_NAME}", plugin_name)
         text.gsub!("${USER_NAME}", user_name)
         text.gsub!("${USER_EMAIL}", user_email)
@@ -58,9 +61,9 @@ module Pod
 
     def rename_template_files
       `mv PLUGIN_README.md README.md`
-      `mv PLUGIN.gemspec #{plugin_name}.gemspec`
-      `mv lib/PLUGIN.rb #{plugin_name}.rb`
-      `mv lib/pod/command/spec/COMMAND.rb #{plugin_command}.rb`
+      `mv PLUGIN.gemspec #{plugin_file}.gemspec`
+      `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
+      `mv lib/pod/command/spec/COMMAND.rb lib/pod/command/spec/#{plugin_command}.rb`
     end
 
     def reinitialize_git_repo
