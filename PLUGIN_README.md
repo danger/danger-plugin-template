@@ -8,4 +8,4 @@ A description of ${PLUGIN_NAME}.
 
 ## Usage
 
-    $ pod spec ${PLUGIN_COMMAND}
+    $ pod spec ${PLUGIN_COMMAND} POD_NAME
