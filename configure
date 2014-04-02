@@ -1,0 +1,99 @@
+#!/usr/bin/env ruby
+
+module Pod
+  class TemplateCofigurator
+
+    attr_reader :plugin_command
+    attr_reader :plugin_name
+
+    def initialize(plugin_name)
+      exit unless plugin_name
+      @plugin_command = plugin_name.split('-').last
+      @plugin_name = plugin_name
+    end
+
+    def run
+      exit unless plugin_name =~ /cocoapods-.+/
+      puts "Configuring #{plugin_name}"
+      print_info
+      clean_template_files
+      replace_variables_in_files
+      rename_template_files
+      reinitialize_git_repo
+    end
+
+    #----------------------------------------#
+
+    def print_info
+      puts "user name:#{user_name}"
+      puts "user email:#{user_email}"
+      puts "year:#{year}"
+    end
+
+    def clean_template_files
+      `rm -rf configure`
+      `rm -rf README.md`
+    end
+
+    def replace_variables_in_files
+      file_names = ['LICENSE.txt',
+                    'PLUGIN_README.md',
+                    'Gemfile', 
+                    'lib/PLUGIN.rb', 
+                    'lib/cocoapods_plugin.rb', 
+                    'lib/pod/command/spec/COMMAND.rb']
+      file_names.each do |file_name|
+        text = File.read(file_name)
+        text.gsub!("${PLUGIN_CLASS", plugin_name.split('-').last.capitalize)
+        text.gsub!("${PLUGIN_COMMAND", plugin_command)
+        text.gsub!("${PLUGIN_MODULE}", plugin_name.split('-').map(&:capitalize).join(''))
+        text.gsub!("${PLUGIN_FILE}", plugin_name.dup.gsub!('-', '_'))
+        text.gsub!("${PLUGIN_NAME}", plugin_name)
+        text.gsub!("${USER_NAME}", user_name)
+        text.gsub!("${USER_EMAIL}", user_email)
+        text.gsub!("${YEAR}", year)
+        File.open(file_name, "w") { |file| file.puts text }
+      end
+    end
+
+    def rename_template_files
+      `mv PLUGIN_README.md README.md`
+      `mv PLUGIN.gemspec #{plugin_name}.gemspec`
+      `mv lib/PLUGIN.rb #{plugin_name}.rb`
+      `mv lib/pod/command/spec/COMMAND.rb #{plugin_command}.rb`
+    end
+
+    def reinitialize_git_repo
+      `rm -rf .git`
+      `git init`
+      `git add -A`
+      `git commit -m "Initial commit"`
+    end
+
+    #----------------------------------------#
+
+    def user_name
+      (ENV['GIT_COMMITTER_NAME'] || `git config user.name`).strip
+    end
+
+    def user_email
+      (ENV['GIT_COMMITTER_EMAIL'] || `git config user.email`).strip
+    end
+
+    def year
+      Time.now.year.to_s
+    end
+
+    #----------------------------------------#
+  end
+end
+
+#-----------------------------------------------------------------------------#
+
+# TODO: Handle description
+# TODO: Handle usage
+# TODO: Handle GitHub URL
+
+plugin_name = ARGV.shift
+Pod::TemplateCofigurator.new(plugin_name).run
+
