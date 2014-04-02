@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 module Pod
-  class TemplateCofigurator
+  class TemplateConfigurator
 
     attr_reader :plugin_command
     attr_reader :plugin_file
