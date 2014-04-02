@@ -108,4 +108,4 @@ end
 # TODO: Handle GitHub URL
 
 plugin_name = ARGV.shift
-Pod::TemplateCofigurator.new(plugin_name).run
+Pod::TemplateConfigurator.new(plugin_name).run
