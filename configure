@@ -8,14 +8,22 @@ module Pod
     attr_reader :plugin_name
 
     def initialize(plugin_name)
-      exit unless plugin_name
+      unless plugin_name
+        puts "Please specify a plugin name on the command line."
+        exit
+      end
+
       @plugin_command = plugin_name.split('-').last
       @plugin_file = plugin_name.dup.gsub!('-', '_')
       @plugin_name = plugin_name
     end
 
     def run
-      exit unless plugin_name =~ /cocoapods-.+/
+      unless plugin_name =~ /cocoapods-.+/
+        puts "Plugin name needs to be of the form 'cocoapods-*'."
+        exit
+      end
+
       puts "Configuring #{plugin_name}"
       print_info
       clean_template_files
@@ -40,10 +48,10 @@ module Pod
     def replace_variables_in_files
       file_names = ['LICENSE.txt',
                     'PLUGIN_README.md',
-                    'Gemfile', 
+                    'Gemfile',
                     'PLUGIN.gemspec',
-                    'lib/PLUGIN.rb', 
-                    'lib/cocoapods_plugin.rb', 
+                    'lib/PLUGIN.rb',
+                    'lib/cocoapods_plugin.rb',
                     'lib/pod/command/spec/COMMAND.rb']
       file_names.each do |file_name|
         text = File.read(file_name)
@@ -99,4 +107,3 @@ end
 
 plugin_name = ARGV.shift
 Pod::TemplateCofigurator.new(plugin_name).run
-
