@@ -43,10 +43,11 @@ module Pod
     def clean_template_files
       `rm -rf configure`
       `rm -rf README.md`
+      `rm -rf LICENSE`
     end
 
     def replace_variables_in_files
-      file_names = ['LICENSE.txt',
+      file_names = ['PLUGIN_LICENSE.txt',
                     'PLUGIN_README.md',
                     'Gemfile',
                     'PLUGIN.gemspec',
@@ -68,6 +69,7 @@ module Pod
     end
 
     def rename_template_files
+      `mv PLUGIN_LICENSE.txt LICENSE.txt`
       `mv PLUGIN_README.md README.md`
       `mv PLUGIN.gemspec #{plugin_file}.gemspec`
       `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
