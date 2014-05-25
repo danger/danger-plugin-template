@@ -1,6 +1,12 @@
 module Pod
   class Command
     class Spec
+      # This is an example of a cocoapods plugin adding a subcommand to
+      # the 'pod spec' command. Adapt it to suit your needs.
+      #
+      # @todo Create a PR to add your plugin to CocoaPods/cocoapods.org
+      #       in the `plugins.json` file, once your plugin is released.
+      #
       class ${PLUGIN_CLASS} < Spec
         self.summary = "Short description of ${PLUGIN_NAME}."
 
