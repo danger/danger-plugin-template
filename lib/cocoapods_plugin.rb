@@ -1,1 +1,1 @@
-require 'pod/command/spec/${PLUGIN_COMMAND}'
+require 'pod/command/${PLUGIN_COMMAND}'
