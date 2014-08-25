@@ -53,7 +53,7 @@ module Pod
                     'PLUGIN.gemspec',
                     'lib/PLUGIN.rb',
                     'lib/cocoapods_plugin.rb',
-                    'lib/pod/command/spec/COMMAND.rb']
+                    'lib/pod/command/COMMAND.rb']
       file_names.each do |file_name|
         text = File.read(file_name)
         text.gsub!("${PLUGIN_CLASS}", plugin_name.split('-').last.capitalize)
@@ -73,7 +73,7 @@ module Pod
       `mv PLUGIN_README.md README.md`
       `mv PLUGIN.gemspec #{plugin_file}.gemspec`
       `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
-      `mv lib/pod/command/spec/COMMAND.rb lib/pod/command/spec/#{plugin_command}.rb`
+      `mv lib/pod/command/COMMAND.rb lib/pod/command/#{plugin_command}.rb`
     end
 
     def reinitialize_git_repo
