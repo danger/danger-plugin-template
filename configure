@@ -47,15 +47,19 @@ module Pod
     end
 
     def replace_variables_in_files
-      file_names = ['PLUGIN_LICENSE.txt',
-                    'PLUGIN_README.md',
-                    'Gemfile',
-                    'PLUGIN.gemspec',
-                    'lib/PLUGIN.rb',
-                    'lib/PLUGIN/gem_version.rb',
-                    'lib/cocoapods_plugin.rb',
-                    'lib/PLUGIN/command.rb',
-                    'lib/PLUGIN/command/COMMAND.rb']
+      file_names = [
+        'PLUGIN_LICENSE.txt',
+        'PLUGIN_README.md',
+        'Gemfile',
+        'PLUGIN.gemspec',
+        'lib/PLUGIN.rb',
+        'lib/PLUGIN/gem_version.rb',
+        'lib/cocoapods_plugin.rb',
+        'lib/PLUGIN/command.rb',
+        'lib/PLUGIN/command/COMMAND.rb',
+        'spec/command/COMMAND_spec.rb'
+      ]
+
       file_names.each do |file_name|
         text = File.read(file_name)
         text.gsub!("${PLUGIN_CLASS}", plugin_name.split('-').last.capitalize)
@@ -77,6 +81,7 @@ module Pod
       `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
       `mv lib/PLUGIN lib/#{plugin_file}`
       `mv lib/#{plugin_file}/command/COMMAND.rb lib/#{plugin_file}/command/#{plugin_command}.rb`
+      `mv spec/command/COMMAND_spec.rb spec/command/#{plugin_command}_spec.rb`
     end
 
     def reinitialize_git_repo
