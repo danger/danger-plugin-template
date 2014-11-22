@@ -14,7 +14,7 @@ module Pod
       end
 
       @plugin_command = plugin_name.split('-').last
-      @plugin_file = plugin_name.dup.gsub!('-', '_')
+      @plugin_file = plugin_name.dup
       @plugin_name = plugin_name
     end
 
