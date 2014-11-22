@@ -1,1 +1,1 @@
-require 'pod/command/${PLUGIN_COMMAND}'
+require '${PLUGIN_NAME}/command.rb'
