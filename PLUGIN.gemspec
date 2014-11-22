@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require '${PLUGIN_FILE}.rb'
+require '${PLUGIN_FILE}/gem_version.rb'
 
 Gem::Specification.new do |spec|
   spec.name          = "${PLUGIN_NAME}"

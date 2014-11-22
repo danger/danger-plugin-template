@@ -52,6 +52,7 @@ module Pod
                     'Gemfile',
                     'PLUGIN.gemspec',
                     'lib/PLUGIN.rb',
+                    'lib/PLUGIN/gem_version.rb',
                     'lib/cocoapods_plugin.rb',
                     'lib/pod/command/COMMAND.rb']
       file_names.each do |file_name|
@@ -73,6 +74,7 @@ module Pod
       `mv PLUGIN_README.md README.md`
       `mv PLUGIN.gemspec #{plugin_file}.gemspec`
       `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
+      `mv lib/PLUGIN lib/#{plugin_file}`
       `mv lib/pod/command/COMMAND.rb lib/pod/command/#{plugin_command}.rb`
     end
 

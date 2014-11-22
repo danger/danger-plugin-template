@@ -1,3 +1,1 @@
-module ${PLUGIN_MODULE}
-  VERSION = "0.0.1"
-end
+require '${PLUGIN_FILE}/gem_version'
