@@ -1,1 +1,1 @@
-require '${PLUGIN_NAME}/command/${PLUGIN_COMMAND}.rb'
+require '${PLUGIN_NAME}/command/${PLUGIN_COMMAND}'
