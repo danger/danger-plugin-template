@@ -18,7 +18,7 @@ module Pod
     #       in the `plugins.json` file, once your plugin is released.
     #
     class ${PLUGIN_CLASS} < Command
-      self.summary = "Short description of ${PLUGIN_NAME}."
+      self.summary = 'Short description of ${PLUGIN_NAME}.'
 
       self.description = <<-DESC
         Longer description of ${PLUGIN_NAME}.
@@ -33,7 +33,7 @@ module Pod
 
       def validate!
         super
-        help! "A Pod name is required." unless @name
+        help! 'A Pod name is required.' unless @name
       end
 
       def run
