@@ -5,6 +5,9 @@ gemspec
 
 group :development do
   gem 'cocoapods'
-  gem 'bacon'
-end
 
+  gem 'mocha'
+  gem 'bacon'
+  gem 'mocha-on-bacon'
+  gem 'prettybacon'
+end
