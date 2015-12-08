@@ -51,7 +51,7 @@ module Pod
         'PLUGIN_LICENSE.txt',
         'PLUGIN_README.md',
         'Gemfile',
-        'PLUGIN.gemspec',
+        'PLUGIN.gemspec.template',
         'lib/PLUGIN.rb',
         'lib/PLUGIN/gem_version.rb',
         'lib/cocoapods_plugin.rb',
@@ -77,7 +77,7 @@ module Pod
     def rename_template_files
       `mv PLUGIN_LICENSE.txt LICENSE.txt`
       `mv PLUGIN_README.md README.md`
-      `mv PLUGIN.gemspec #{plugin_file}.gemspec`
+      `mv PLUGIN.gemspec.template #{plugin_file}.gemspec`
       `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
       `mv lib/PLUGIN lib/#{plugin_file}`
       `mv lib/#{plugin_file}/command/COMMAND.rb lib/#{plugin_file}/command/#{plugin_command}.rb`
