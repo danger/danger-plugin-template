@@ -3,7 +3,6 @@
 module Pod
   class TemplateConfigurator
 
-    attr_reader :plugin_command
     attr_reader :plugin_file
     attr_reader :plugin_name
 
@@ -13,14 +12,19 @@ module Pod
         exit
       end
 
-      @plugin_command = plugin_name.split('-').last
-      @plugin_file = plugin_name.dup
+      @plugin_file = plugin_name.split("-").last
       @plugin_name = plugin_name
     end
 
     def run
-      unless plugin_name =~ /cocoapods-.+/
-        puts "Plugin name needs to be of the form 'cocoapods-*'."
+      unless plugin_name =~ /danger-.+/
+        puts "Plugin name needs to be of the form 'danger-*'."
+        exit
+      end
+
+      if plugin_name.count("-") > 1
+        puts "Plugin name should have one '-', and then '_'s to separate words in your plugin name"
+        puts "See http://guides.rubygems.org/name-your-gem/ for more info"
         exit
       end
 
@@ -54,17 +58,18 @@ module Pod
         'PLUGIN.gemspec.template',
         'lib/PLUGIN.rb',
         'lib/PLUGIN/gem_version.rb',
-        'lib/cocoapods_plugin.rb',
-        'lib/PLUGIN/command.rb',
-        'lib/PLUGIN/command/COMMAND.rb',
-        'spec/command/COMMAND_spec.rb'
+        'lib/danger_plugin.rb',
+        'lib/PLUGIN/plugin.rb',
+        'spec/PLUGIN_spec.rb'
       ]
 
       file_names.each do |file_name|
         text = File.read(file_name)
-        text.gsub!("${PLUGIN_CLASS}", plugin_name.split('-').last.capitalize)
-        text.gsub!("${PLUGIN_COMMAND}", plugin_command)
-        text.gsub!("${PLUGIN_MODULE}", plugin_name.split('-').map(&:capitalize).join(''))
+        # danger-no_eggs_please -> DangerNoEggsPlease
+        text.gsub!("${PLUGIN_CLASS}", plugin_name.split(%r{\-|_}).map(&:capitalize).join)
+        # danger-no_eggs_please -> NoEggsPlease
+        text.gsub!("${PLUGIN_MODULE}", plugin_name.gsub("danger-","").split('_').map(&:capitalize).join)
+        # danger-no_eggs_please -> no_eggs_please
         text.gsub!("${PLUGIN_FILE}", plugin_file)
         text.gsub!("${PLUGIN_NAME}", plugin_name)
         text.gsub!("${USER_NAME}", user_name)
@@ -77,11 +82,10 @@ module Pod
     def rename_template_files
       `mv PLUGIN_LICENSE.txt LICENSE.txt`
       `mv PLUGIN_README.md README.md`
-      `mv PLUGIN.gemspec.template #{plugin_file}.gemspec`
-      `mv lib/PLUGIN.rb lib/#{plugin_file}.rb`
+      `mv PLUGIN.gemspec.template plugin_name.gemspec`
+      `mv lib/PLUGIN.rb lib/danger_#{plugin_file}.rb`
       `mv lib/PLUGIN lib/#{plugin_file}`
-      `mv lib/#{plugin_file}/command/COMMAND.rb lib/#{plugin_file}/command/#{plugin_command}.rb`
-      `mv spec/command/COMMAND_spec.rb spec/command/#{plugin_command}_spec.rb`
+      `mv spec/PLUGIN_spec.rb spec/#{plugin_file}_spec.rb`
     end
 
     def reinitialize_git_repo

@@ -8,4 +8,5 @@ A description of ${PLUGIN_NAME}.
 
 ## Usage
 
-    $ pod spec ${PLUGIN_COMMAND} POD_NAME
+    Methods and attributes from this plugin are available in
+    your `Dangerfile` under the `${PLUGIN_FILE}` namespace.

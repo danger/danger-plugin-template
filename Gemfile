@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'cocoapods'
+  gem 'danger'
 
-  gem 'mocha'
-  gem 'bacon'
-  gem 'mocha-on-bacon'
-  gem 'prettybacon'
+  gem 'rspec'
+  gem 'rubocop'
+  gem 'webmock'
+  gem 'pry'
 end

@@ -1,13 +1,19 @@
 require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
-def specs(dir)
-  FileList["spec/#{dir}/*_spec.rb"].shuffle.join(' ')
+RSpec::Core::RakeTask.new(:specs)
+
+task default: :specs
+
+task :spec do
+  Rake::Task['specs'].invoke
+  Rake::Task['rubocop'].invoke
+  Rake::Task['spec_docs'].invoke
 end
 
-desc 'Runs all the specs'
-task :specs do
-  sh "bundle exec bacon #{specs('**')}"
+desc 'Run RuboCop on the lib/specs directory'
+RuboCop::RakeTask.new(:rubocop) do |task|
+  task.patterns = ['lib/**/*.rb', 'spec/**/*.rb']
 end
-
-task :default => :specs
 
