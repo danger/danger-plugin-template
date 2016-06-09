@@ -82,7 +82,7 @@ module Pod
     def rename_template_files
       `mv PLUGIN_LICENSE.txt LICENSE.txt`
       `mv PLUGIN_README.md README.md`
-      `mv PLUGIN.gemspec.template plugin_name.gemspec`
+      `mv PLUGIN.gemspec.template #{plugin_name}.gemspec`
       `mv lib/PLUGIN.rb lib/danger_#{plugin_file}.rb`
       `mv lib/PLUGIN lib/#{plugin_file}`
       `mv spec/PLUGIN_spec.rb spec/#{plugin_file}_spec.rb`
