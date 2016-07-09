@@ -17,7 +17,11 @@ in your Dangerfile
 ## Going from there
 
 - Add descriptions to the Gem specification, README and command itself
+- Implement your plugin, documentation is available at http://danger.systems
+
+## Getting it in the Danger.Systems plugin index
+
 - Set a correct homepage in the Gem specification
-- Implement your plugin!
+- Ensure that your plugin passes `danger plugins lint`
 - Create a Pull Request to add your plugin to the list of known plugins in
-  `https://github.com/danger/danger_plugins/blob/master/plugins.json`
+  `https://github.com/danger/danger.systems/blob/master/plugins.json`, it only needs your Gem's name.
