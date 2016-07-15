@@ -17,3 +17,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.patterns = ['lib/**/*.rb', 'spec/**/*.rb']
 end
 
+desc 'Ensure that the plugin passes `danger plugins lint`'
+task :spec_docs do
+  sh 'bundle exec danger plugins lint'
+end
