@@ -2,17 +2,16 @@
 
 module Pod
   class TemplateConfigurator
-
     attr_reader :plugin_file
     attr_reader :plugin_name
 
     def initialize(plugin_name)
       unless plugin_name
-        puts "Please specify a plugin name on the command line."
+        puts 'Please specify a plugin name on the command line.'
         exit
       end
 
-      @plugin_file = plugin_name.split("-").last
+      @plugin_file = plugin_name.split('-').last
       @plugin_name = plugin_name
     end
 
@@ -22,9 +21,9 @@ module Pod
         exit
       end
 
-      if plugin_name.count("-") > 1
+      if plugin_name.count('-') > 1
         puts "Plugin name should have one '-', and then '_'s to separate words in your plugin name"
-        puts "See http://guides.rubygems.org/name-your-gem/ for more info"
+        puts 'See http://guides.rubygems.org/name-your-gem/ for more info'
         exit
       end
 
@@ -66,16 +65,16 @@ module Pod
       file_names.each do |file_name|
         text = File.read(file_name)
         # danger-no_eggs_please -> DangerNoEggsPlease
-        text.gsub!("${PLUGIN_CLASS}", plugin_name.split(%r{\-|_}).map(&:capitalize).join)
+        text.gsub!('${PLUGIN_CLASS}', plugin_name.split(/\-|_/).map(&:capitalize).join)
         # danger-no_eggs_please -> NoEggsPlease
-        text.gsub!("${PLUGIN_MODULE}", plugin_name.gsub("danger-","").split('_').map(&:capitalize).join)
+        text.gsub!('${PLUGIN_MODULE}', plugin_name.gsub('danger-', '').split('_').map(&:capitalize).join)
         # danger-no_eggs_please -> no_eggs_please
-        text.gsub!("${PLUGIN_FILE}", plugin_file)
-        text.gsub!("${PLUGIN_NAME}", plugin_name)
-        text.gsub!("${USER_NAME}", user_name)
-        text.gsub!("${USER_EMAIL}", user_email)
-        text.gsub!("${YEAR}", year)
-        File.open(file_name, "w") { |file| file.puts text }
+        text.gsub!('${PLUGIN_FILE}', plugin_file)
+        text.gsub!('${PLUGIN_NAME}', plugin_name)
+        text.gsub!('${USER_NAME}', user_name)
+        text.gsub!('${USER_EMAIL}', user_email)
+        text.gsub!('${YEAR}', year)
+        File.open(file_name, 'w') { |file| file.puts text }
       end
     end
 
