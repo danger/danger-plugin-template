@@ -9,6 +9,13 @@ require 'pry'
 require 'rspec'
 require 'danger'
 
+# Use coloured output, it's the best.
+RSpec.configure do |config|
+  config.filter_gems_from_backtrace "bundler"
+  config.color = true
+  config.tty = true
+end
+
 require 'danger_plugin'
 
 # These functions are a subset of https://github.com/danger/danger/blob/master/spec/spec_helper.rb
