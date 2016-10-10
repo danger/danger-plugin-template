@@ -54,6 +54,6 @@ end
 
 # A stubbed out Dangerfile for use in tests
 def testing_dangerfile
-  env = Danger::EnvironmentManager.new(testing_env)
+  env = Danger::EnvironmentManager.new(testing_env, testing_ui)
   Danger::Dangerfile.new(env, testing_ui)
 end
