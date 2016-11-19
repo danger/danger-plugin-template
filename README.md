@@ -23,5 +23,5 @@ in your Dangerfile
 
 - Set a correct homepage in the Gem specification
 - Ensure that your plugin passes `danger plugins lint`
-- Create a Pull Request to add your plugin to the list of known plugins in
-  `https://github.com/danger/danger.systems/blob/master/plugins.json`, it only needs your Gem's name.
+- Create a Merge Request to add your plugin to the list of known plugins in
+  `https://gitlab.com/danger-systems/danger.systems/blob/master/plugins.json`, it only needs your Gem's name.
