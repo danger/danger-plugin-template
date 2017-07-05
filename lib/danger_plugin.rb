@@ -1,1 +1,1 @@
-require '${PLUGIN_FILE}/plugin'
+require "${PLUGIN_FILE}/plugin"
