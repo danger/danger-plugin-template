@@ -1,1 +1,1 @@
-require '${PLUGIN_FILE}/gem_version'
+require "${PLUGIN_FILE}/gem_version"
