@@ -13,6 +13,12 @@ module Danger
       before do
         @dangerfile = testing_dangerfile
         @my_plugin = @dangerfile.${PLUGIN_FILE}
+
+        # mock the PR data
+        # you can then use this, eg. github.pr_author, later in the spec
+        # see https://github.com/danger/danger/issues/661#issuecomment-262392864 for limitations
+        json = File.read(File.dirname(__FILE__) + '/support/fixtures/github_pr.json')
+        allow(@my_plugin.github).to receive(:pr_json).and_return(json)
       end
 
       # Some examples for writing tests
