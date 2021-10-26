@@ -13,10 +13,6 @@ Style/StringLiterals:
 Style/ClassCheck:
   EnforcedStyle: kind_of?
 
-# It's better to be more explicit about the type
-Style/BracesAroundHashParameters:
-  Enabled: false
-
 # specs sometimes have useless assignments, which is fine
 Lint/UselessAssignment:
   Exclude:
