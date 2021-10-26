@@ -136,7 +136,7 @@ Layout/HeredocIndentation:
 Style/SpecialGlobalVars:
   Enabled: false
 
-PercentLiteralDelimiters:
+Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     "%":  ()
     "%i": ()
