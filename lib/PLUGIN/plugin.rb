@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Danger
   # This is your plugin class. Any attributes or methods you expose here will
   # be available from within your Dangerfile.
@@ -17,7 +19,6 @@ module Danger
   # @tags monday, weekends, time, rattata
   #
   class ${PLUGIN_CLASS} < Plugin
-
     # An attribute that you can read/write from your Dangerfile
     #
     # @return   [Array<String>]
@@ -27,7 +28,7 @@ module Danger
     # @return   [Array<String>]
     #
     def warn_on_mondays
-      warn 'Trying to merge code on a Monday' if Date.today.wday == 1
+      warn "Trying to merge code on a Monday" if Date.today.wday == 1
     end
   end
 end

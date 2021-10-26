@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require "pathname"
-ROOT = Pathname.new(File.expand_path("../../", __FILE__))
-$:.unshift((ROOT + "lib").to_s)
-$:.unshift((ROOT + "spec").to_s)
+ROOT = Pathname.new(File.expand_path("..", __dir__))
+$:.unshift("#{ROOT}lib".to_s)
+$:.unshift("#{ROOT}spec".to_s)
 
 require "bundler/setup"
 require "pry"
@@ -9,7 +11,7 @@ require "pry"
 require "rspec"
 require "danger"
 
-if `git remote -v` == ''
+if `git remote -v` == ""
   puts "You cannot run tests without setting a local git remote on this repo"
   puts "It's a weird side-effect of Danger's internals."
   exit(0)
